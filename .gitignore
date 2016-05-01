@@ -1,0 +1,19 @@
+_Store
+bin
+target
+src/main/webapp/META-INF
+.idea
+*.iml
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# Eclipse Core
+.project

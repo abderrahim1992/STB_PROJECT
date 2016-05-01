@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ListStb>
+<stbList id="1">
+<projectTitle>amical gil</projectTitle>
+<stbVersion>5.1</stbVersion>
+<stbDate>23-06-2016</stbDate>
+<description>stb de godar</description>
+<nomClient>ibrihen</nomClient>
+<prenomClient>mohamed</prenomClient>
+<genderClient>masc</genderClient>
+<contactClient>751132278</contactClient>
+<numRue>35</numRue>
+<nomRue>marechal</nomRue>
+<nomVille>rouen</nomVille>
+<codePostal>76130</codePostal>
+</stbList>
+</ListStb>

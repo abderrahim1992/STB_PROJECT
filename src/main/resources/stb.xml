@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:stb xmlns:p="http://univ.fr/stb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://univ.fr/stb stb.xsd ">
+  <titre>Agora</titre>
+  <version>V5-2</version>
+  <date>22/02/16</date>
+  <description>Jeux en ligne</description>
+  <client>
+    <entite>Universite</entite>
+    <contact>Abderrahim si ziani</contact>
+    <cp>76000</cp>
+  </client>
+  <p:membre>
+    <nom gender="true">
+      <nom>si ziani</nom>
+    </nom>
+    <prenom>abderrahim</prenom>
+  </p:membre>
+  <p:membre>
+    <nom gender="false">
+      <nom>legoine</nom>
+    </nom>
+    <prenom>stéphanie</prenom>
+  </p:membre>
+  <fonctionnalite prioriteatt="10">
+    <description>administration</description>
+    <p:exigence>
+      <identifiant>01</identifiant>
+      <description>Faire le datable</description>
+      <p:priorite>10</p:priorite>
+    </p:exigence>
+    <p:exigence>
+      <identifiant>02</identifiant>
+      <description>Faire l'interface</description>
+      <p:priorite>9</p:priorite>
+    </p:exigence>
+  </fonctionnalite>
+  <fonctionnalite prioriteatt="9">
+    <description>Edel, Stein und Reich</description>
+    <p:exigence>
+      <identifiant>03</identifiant>
+      <description>Faire les classes</description>
+      <p:priorite>8</p:priorite>
+    </p:exigence>
+    <p:exigence>
+      <identifiant>04</identifiant>
+      <description>Faire l'interface</description>
+      <p:priorite>7</p:priorite>
+    </p:exigence>
+  </fonctionnalite>
+</p:stb>
