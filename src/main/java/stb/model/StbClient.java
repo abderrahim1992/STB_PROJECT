@@ -1,7 +1,12 @@
 package stb.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name ="client")
+@XmlAccessorType(XmlAccessType.NONE)
 public class StbClient {
 
 	/**
@@ -17,10 +22,10 @@ public class StbClient {
     private String genderClient;
     
     @XmlElement
-    private int contactClient;
+    private String contactClient;
     
     @XmlElement
-    private int numRue;
+    private String numRue;
     
     @XmlElement
     private String nomRue;
@@ -29,9 +34,9 @@ public class StbClient {
     private String nomVille;
     
     @XmlElement
-    private int codePostal;
+    private String codePostal;
     
-    public StbClient(String nom, String prenom, String gender, int contact, int num, String rue, String ville, int code){
+    public StbClient(String nom, String prenom, String gender, String contact, String num, String rue, String ville, String code){
     	this.nomClient=nom;
     	this.prenomClient=prenom;
     	this.genderClient=gender;
@@ -57,11 +62,11 @@ public class StbClient {
     	return genderClient;
     }
     
-    public int getContactClient(){
+    public String getContactClient(){
     	return contactClient;
     }
     
-    public int getnumRue(){
+    public String getnumRue(){
     	return numRue;
     }
     
@@ -73,7 +78,7 @@ public class StbClient {
     	return nomVille;
     }
     
-    public int getCode(){
+    public String getCode(){
     	return codePostal;
     }
     
@@ -90,11 +95,11 @@ public class StbClient {
     	this.genderClient=genderClient;
     }
     
-    public void setContactClient(int contactClient){
+    public void setContactClient(String contactClient){
     	this.contactClient=contactClient;
     }
     
-    public void setnumRue(int numRue){
+    public void setnumRue(String numRue){
     	this.numRue=numRue;
     }
     
@@ -106,7 +111,7 @@ public class StbClient {
     	this.nomVille= nomVille;
     }
     
-    public void setCode(int codePostal){
+    public void setCode(String codePostal){
     	this.codePostal=codePostal;
     }
     

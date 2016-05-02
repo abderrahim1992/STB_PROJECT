@@ -56,7 +56,7 @@ public class StbDaoImpl implements StbDAO {
 	}
 
 	@Override
-	public 	void saveOrUpdate(STB stb){
+	public 	void saveOrUpdate(Object stb){
 		// TODO Auto-generated method stub
 //		 if (stb.getID() == 1) {
 //		        // update
@@ -74,19 +74,19 @@ public class StbDaoImpl implements StbDAO {
 //			transformer.transform(source, result);
 //			String xmlString = result.getWriter().toString();
 //			System.out.println(xmlString);
-					 StbClient client=stb.getClient();
-                     titre=stb.getTitre();
-                     version=stb.getVersion();
-                     date =  stb.getDate();
-                     description =  stb.getDescription();
+					 StbClient client=((STB) stb).getClient();
+                     titre=((STB) stb).getTitre();
+                     version=((STB) stb).getVersion();
+                     date =  ((STB) stb).getDate();
+                     description =  ((STB) stb).getDescription();
                      nom =  client.getNomClient();
-                     prenom =  client.getPrenomClient();
-                     gen =  client.getGenderClient();
-                     contact =  client.getContactClient();
-                     num =  client.getnumRue();
-                     rue =  client.getNomRue();
-                     ville = client.getNomVille();
-                     code =  client.getCode();
+//                     prenom =  client.getPrenomClient();
+//                     gen =  client.getGenderClient();
+//                     contact =  client.getContactClient();
+//                     num =  client.getnumRue();
+//                     rue =  client.getNomRue();
+//                     ville = client.getNomVille();
+//                     code =  client.getCode();
                      String sql =  "INSERT INTO stbType (titre, version, date, description, nom_client, " +
 		        			  "prenom_client, gender_client,  num_rue, nom_rue, nom_ville, code_postal,contact_client)"
 		                    + " VALUES ('"+titre+"','"+version+"','"+date+"','"+description+"','"+nom+"','"+prenom+

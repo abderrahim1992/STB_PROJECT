@@ -24,9 +24,9 @@ public class ExigenceDao implements StbDAO {
 	}
 
 	@Override
-	public void saveOrUpdate(STB stb) {
+	public void saveOrUpdate(Object stb) {
 		// TODO Auto-generated method stub
-		StbExigence exg=stb.getExigence();
+		StbExigence exg=((STB) stb).getExigence();
 		String description=exg.getDescription();
 		int priorite=exg.getPriorite();
 		int idFctnl=exg.getIdFonctionnalite();

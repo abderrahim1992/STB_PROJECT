@@ -24,10 +24,10 @@ public class EquipeDao implements StbDAO {
 	}
 
 	@Override
-	public void saveOrUpdate(STB stb) {
+	public void saveOrUpdate(Object stb) {
 		// TODO Auto-generated method stub
 		
-		StbEquipe mbr=stb.getEquipe();
+		StbEquipe mbr=((STB) stb).getEquipe();
 		
 		String nom=mbr.getNom();
 		String prenom=mbr.getPrenom();

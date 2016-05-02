@@ -1,5 +1,7 @@
 package stb.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class StbCommentaire {

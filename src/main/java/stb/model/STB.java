@@ -36,23 +36,24 @@ public class STB implements Serializable
     @XmlElement
     private String description;
     
-    
-    
     private StbCommentaire commentaire;
     
+    @XmlElement
     private StbEquipe equipe;
     
-    private StbFonctionnalites fonctionalite;
     
+    @XmlElement
     private StbExigence exigence;
     
-    private StbFonctionnalites fonctionnalites;
+    @XmlElement
+	private StbFonctionnalites fonctionnalites;
     
-    private StbClient client;
+    @XmlElement
+	private StbClient client;
     
     
    
-    public STB(Integer id, String projectTitle, String stbVersion, String stbDate, String description, String nomClient, String prenomClient, String genderClient, int contactClient,int numRue, String nomRue, String nomVille, int codePostale){
+    public STB(Integer id, String projectTitle, String stbVersion, String stbDate, String description){
         super();
         this.id = id;
         this.projectTitle = projectTitle;
@@ -97,9 +98,6 @@ public class STB implements Serializable
     	return equipe;
     }
     
-    public StbFonctionnalites getFonctionnalite(){
-    	return fonctionalite;
-    }
     
     public StbExigence getExigence (){
     	return exigence;
@@ -135,6 +133,7 @@ public class STB implements Serializable
     	this.description=description;
     }
     
+
     
     
  

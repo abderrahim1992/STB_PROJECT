@@ -24,10 +24,10 @@ public class FonctionnalitesDao implements StbDAO {
 	}
 
 	@Override
-	public void saveOrUpdate(STB stb) {
+	public void saveOrUpdate(Object stb) {
 		// TODO Auto-generated method stub
 		
-		StbFonctionnalites fct=stb.getFonctionnalites();
+		StbFonctionnalites fct=((STB) stb).getFonctionnalites();
 		String description=fct.getDescription();
 		int priorite=fct.getPriorite();
 		String sql = "INSERT INTO fonctionnalites (description, priorite, id_stb)"

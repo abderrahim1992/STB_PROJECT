@@ -13,7 +13,7 @@ import stb.model.STB;
 
 public interface StbDAO {
 	
-	public void saveOrUpdate(STB stb) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException, XPathExpressionException;
+	public void saveOrUpdate(Object stb) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException, XPathExpressionException;
     public void delete(int stbId);
     public Object get(int stbID);
     public List<Object> list();

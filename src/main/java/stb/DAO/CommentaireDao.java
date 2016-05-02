@@ -23,10 +23,10 @@ public class CommentaireDao implements StbDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	@Override
-	public void saveOrUpdate(STB stb) {
+	public void saveOrUpdate(Object stb) {
 		// TODO Auto-generated method stub
 		
-		StbCommentaire cmt=stb.getCommentaire();
+		StbCommentaire cmt=((STB) stb).getCommentaire();
 		
 		int id_project=cmt.getIdCommentaire();
 		int id_organisme=cmt.getIdOrganisme();

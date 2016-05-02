@@ -32,6 +32,10 @@ import stb.DAO.StbDAO;
 import stb.DAO.StbDaoImpl;
 import stb.model.ListStb;
 import stb.model.STB;
+import stb.model.StbClient;
+import stb.model.StbEquipe;
+import stb.model.StbExigence;
+import stb.model.StbFonctionnalites;
 
 @RestController
 public class StbController {
@@ -69,7 +73,14 @@ public class StbController {
 	public @ResponseBody ResponseEntity<Void> saveStb(@RequestBody STB stb, UriComponentsBuilder ucBuilder) throws FileNotFoundException, XPathExpressionException, ParserConfigurationException, SAXException, IOException {
 		// TODO Vérifier si la STB existe déjà dans la BDD si c'est le cas
 		// retourner une erreur HTTP 409 (conflit)
-		System.out.println("Description = " + stb.getDescription() + "Ttitre = " + stb.getTitre());
+		System.out.println("********" + stb.toString());
+		StbExigence exigence = stb.getExigence();
+		StbFonctionnalites fonctionnalite = stb.getFonctionnalites();
+		StbClient client = stb.getClient();
+		StbEquipe equipe = stb.getEquipe();
+		System.out.println("nom equipe = " + equipe.getNom());
+		System.out.println("\n\n\npriorite = " + exigence.getPriorite() + " fonc = " + fonctionnalite.getDescription());
+		System.out.println("nom client : " + client.getNomClient());
 		StbDao.saveOrUpdate(stb);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(stb.getID()).toUri());
