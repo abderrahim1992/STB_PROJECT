@@ -34,6 +34,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import stb.model.STB;
+import stb.model.StbClient;
 
 public class StbDaoImpl implements StbDAO {
 	 private JdbcTemplate jdbcTemplate;
@@ -73,18 +74,19 @@ public class StbDaoImpl implements StbDAO {
 //			transformer.transform(source, result);
 //			String xmlString = result.getWriter().toString();
 //			System.out.println(xmlString);
+					 StbClient client=stb.getClient();
                      titre=stb.getTitre();
                      version=stb.getVersion();
                      date =  stb.getDate();
                      description =  stb.getDescription();
-                     nom =  stb.getNomClient();
-                     prenom =  stb.getPrenomClient();
-                     gen =  stb.getGenderClient();
-                     contact =  stb.getContactClient();
-                     num =  stb.getnumRue();
-                     rue =  stb.getNomRue();
-                     ville = stb.getNomVille();
-                     code =  stb.getCode();
+                     nom =  client.getNomClient();
+                     prenom =  client.getPrenomClient();
+                     gen =  client.getGenderClient();
+                     contact =  client.getContactClient();
+                     num =  client.getnumRue();
+                     rue =  client.getNomRue();
+                     ville = client.getNomVille();
+                     code =  client.getCode();
                      String sql =  "INSERT INTO stbType (titre, version, date, description, nom_client, " +
 		        			  "prenom_client, gender_client,  num_rue, nom_rue, nom_ville, code_postal,contact_client)"
 		                    + " VALUES ('"+titre+"','"+version+"','"+date+"','"+description+"','"+nom+"','"+prenom+
@@ -120,14 +122,14 @@ public class StbDaoImpl implements StbDAO {
 	                stb.setVersion(rs.getString("version"));
 	                stb.setDate(rs.getString("date"));
 	                stb.setDescription(rs.getString("description"));
-	                stb.setNomClient(rs.getString("nom_client"));
-	                stb.setPrenomClient(rs.getString("prenom_client"));
-	                stb.setGenderClient(rs.getString("gender_client"));
-	                stb.setContactClient(rs.getInt("contact_client"));
-	                stb.setnumRue(rs.getInt("num_rue"));
-	                stb.setNomRue(rs.getString("nom_rue"));
-	                stb.setNomVille(rs.getString("nom_ville"));
-	                stb.setCode(rs.getInt("code_postal"));
+//	                stb.getClient().setNomClient(rs.getString("nom_client"));
+//	                stb.getClient().setPrenomClient(rs.getString("prenom_client"));
+//	                stb.getClient().setGenderClient(rs.getString("gender_client"));
+//	                stb.getClient().setContactClient(rs.getInt("contact_client"));
+//	                stb.getClient().setnumRue(rs.getInt("num_rue"));
+//	                stb.getClient().setNomRue(rs.getString("nom_rue"));
+//	                stb.getClient().setNomVille(rs.getString("nom_ville"));
+//	                stb.getClient().setCode(rs.getInt("code_postal"));
 	                return stb;
 	            }
 	            return null;
@@ -147,14 +149,14 @@ public class StbDaoImpl implements StbDAO {
                 stb.setVersion(rs.getString("version"));
                 stb.setDate(rs.getString("date"));
                 stb.setDescription(rs.getString("description"));
-                stb.setNomClient(rs.getString("nom_client"));
-                stb.setPrenomClient(rs.getString("prenom_client"));
-                stb.setGenderClient(rs.getString("gender_client"));
-                stb.setContactClient(rs.getInt("contact_client"));
-                stb.setnumRue(rs.getInt("num_rue"));
-                stb.setNomRue(rs.getString("nom_rue"));
-                stb.setNomVille(rs.getString("nom_ville"));
-                stb.setCode(rs.getInt("code_postal"));
+//                stb.getClient().setNomClient(rs.getString("nom_client"));
+//                stb.getClient().setPrenomClient(rs.getString("prenom_client"));
+//                stb.getClient().setGenderClient(rs.getString("gender_client"));
+//                stb.getClient().setContactClient(rs.getInt("contact_client"));
+//                stb.getClient().setnumRue(rs.getInt("num_rue"));
+//                stb.getClient().setNomRue(rs.getString("nom_rue"));
+//                stb.getClient().setNomVille(rs.getString("nom_ville"));
+//                stb.getClient().setCode(rs.getInt("code_postal"));
                 return stb;
 	        }
 	 

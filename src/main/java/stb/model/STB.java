@@ -36,29 +36,7 @@ public class STB implements Serializable
     @XmlElement
     private String description;
     
-    @XmlElement
-    private String nomClient;
     
-    @XmlElement
-    private String prenomClient;
-    
-    @XmlElement
-    private String genderClient;
-    
-    @XmlElement
-    private int contactClient;
-    
-    @XmlElement
-    private int numRue;
-    
-    @XmlElement
-    private String nomRue;
-    
-    @XmlElement
-    private String nomVille;
-    
-    @XmlElement
-    private int codePostal;
     
     private StbCommentaire commentaire;
     
@@ -70,6 +48,8 @@ public class STB implements Serializable
     
     private StbFonctionnalites fonctionnalites;
     
+    private StbClient client;
+    
     
    
     public STB(Integer id, String projectTitle, String stbVersion, String stbDate, String description, String nomClient, String prenomClient, String genderClient, int contactClient,int numRue, String nomRue, String nomVille, int codePostale){
@@ -79,9 +59,7 @@ public class STB implements Serializable
         this.stbVersion = stbVersion;
         this.stbDate = stbDate;
         this.description = description;
-        this.nomClient=nomClient;
-        this.prenomClient=prenomClient;
-        this.contactClient=contactClient;
+        
     } 
     public STB(){
     	
@@ -109,37 +87,7 @@ public class STB implements Serializable
     	return description;
     }
     
-    public String getNomClient(){
-    	return nomClient;
-    }
     
-    public String getPrenomClient(){
-    	return prenomClient;
-    }
-    
-    public String getGenderClient(){
-    	return genderClient;
-    }
-    
-    public int getContactClient(){
-    	return contactClient;
-    }
-    
-    public int getnumRue(){
-    	return numRue;
-    }
-    
-    public String getNomRue(){
-    	return nomRue;
-    }
-    
-    public String getNomVille(){
-    	return nomVille;
-    }
-    
-    public int getCode(){
-    	return codePostal;
-    }
     
     public StbCommentaire getCommentaire(){
     	return commentaire;
@@ -159,6 +107,10 @@ public class STB implements Serializable
     
     public StbFonctionnalites getFonctionnalites(){
     	return fonctionnalites; 
+    }
+    
+    public StbClient getClient(){
+    	return client; 
     }
     
     //setter	
@@ -183,37 +135,6 @@ public class STB implements Serializable
     	this.description=description;
     }
     
-    public void setNomClient(String nomClient){
-    	this.nomClient=nomClient;
-    }
-    
-    public void setPrenomClient(String prenomClient){
-    	this.prenomClient=prenomClient;
-    }
-    
-    public void setGenderClient(String genderClient){
-    	this.genderClient=genderClient;
-    }
-    
-    public void setContactClient(int contactClient){
-    	this.contactClient=contactClient;
-    }
-    
-    public void setnumRue(int numRue){
-    	this.numRue=numRue;
-    }
-    
-    public void setNomRue(String nomRue){
-    	this.nomRue= nomRue;
-    }
-    
-    public  void setNomVille(String nomVille){
-    	this.nomVille= nomVille;
-    }
-    
-    public void setCode(int codePostal){
-    	this.codePostal=codePostal;
-    }
     
     
  
