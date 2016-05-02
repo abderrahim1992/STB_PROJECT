@@ -33,6 +33,7 @@ import stb.DAO.StbDaoImpl;
 import stb.model.ListStb;
 import stb.model.STB;
 import stb.model.StbClient;
+import stb.model.StbCommentaire;
 import stb.model.StbEquipe;
 import stb.model.StbExigence;
 import stb.model.StbFonctionnalites;
@@ -78,6 +79,8 @@ public class StbController {
 		StbFonctionnalites fonctionnalite = stb.getFonctionnalites();
 		StbClient client = stb.getClient();
 		StbEquipe equipe = stb.getEquipe();
+		StbCommentaire commentaire = stb.getCommentaire();
+		System.out.println("commentaire = " + commentaire.getInformation());
 		System.out.println("nom equipe = " + equipe.getNom());
 		System.out.println("\n\n\npriorite = " + exigence.getPriorite() + " fonc = " + fonctionnalite.getDescription());
 		System.out.println("nom client : " + client.getNomClient());
