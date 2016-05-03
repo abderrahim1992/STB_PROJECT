@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @XmlRootElement (name = "stb")
 @XmlAccessorType(XmlAccessType.NONE)
 public class STB implements Serializable 
@@ -36,20 +35,19 @@ public class STB implements Serializable
     @XmlElement
     private String description;
     
-    private StbCommentaire commentaire;
+    @XmlElement
+   	private StbClient client;
     
     @XmlElement
-    private StbEquipe equipe;
-    
-    
-    @XmlElement
-    private StbExigence exigence;
+    private StbEquipe membre;
     
     @XmlElement
 	private StbFonctionnalites fonctionnalites;
     
+   
+    
     @XmlElement
-	private StbClient client;
+    private StbCommentaire commentaire;
     
     
    
@@ -88,27 +86,22 @@ public class STB implements Serializable
     	return description;
     }
     
-    
-    
-    public StbCommentaire getCommentaire(){
-    	return commentaire;
+    public StbClient getClient(){
+    	return client; 
     }
-   
+    
     public StbEquipe getEquipe(){
-    	return equipe;
-    }
-    
-    
-    public StbExigence getExigence (){
-    	return exigence;
+    	return membre;
     }
     
     public StbFonctionnalites getFonctionnalites(){
     	return fonctionnalites; 
     }
     
-    public StbClient getClient(){
-    	return client; 
+    
+    
+    public StbCommentaire getCommentaire(){
+    	return commentaire;
     }
     
     //setter	
@@ -133,10 +126,22 @@ public class STB implements Serializable
     	this.description=description;
     }
     
+    public void setClient(StbClient stbclient){
+    	this.client=stbclient; 
+    }
+    
+    public void setEquipe(StbEquipe mbr){
+    	this.membre=mbr; 
+    }
+    
+    public void setFonctionnalite(StbFonctionnalites stbFonctionnalite){
+    	this.fonctionnalites=stbFonctionnalite; 
+    }
+    
+    public void setCommentaire(StbCommentaire comment){
+    	this.commentaire=comment; 
+    }
 
-    
-    
- 
     @Override
     public String toString() {
         return "stb [id=" + id + ", titre_project=" + projectTitle

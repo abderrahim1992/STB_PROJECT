@@ -1,11 +1,16 @@
 package stb.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="fonctionnalites")
+@XmlAccessorType(XmlAccessType.NONE)
 public class StbFonctionnalites {
 	
 	/** 
@@ -22,7 +27,12 @@ public class StbFonctionnalites {
 	 
 	 @XmlElement
 	private int id_stb;
+	 
+	 @XmlElement
+	 private StbExigence exigence;
 	
+	 @XmlElement
+	 private List<StbExigence> exigences = new ArrayList<StbExigence>();
 	/** 
 	 * Constructors
 	 * */
@@ -42,6 +52,12 @@ public class StbFonctionnalites {
 	 * Getters
 	 * */
 	
+	
+	 
+    public List<StbExigence> getStbList() {
+        return exigences;
+    }
+ 
 	public int getIdFonctionnalite(){
 		return id_fonctionnalite;
 	}
@@ -56,6 +72,10 @@ public class StbFonctionnalites {
 	
 	public int getIdStb(){
 		return id_stb;
+	}
+	
+	public StbExigence getExigence (){
+	    	return exigence;
 	}
 	
 	/** 
@@ -74,7 +94,16 @@ public class StbFonctionnalites {
 		this.prioriteFonctionnalite= priorite;
 	}
 	
+	public void setExigence (StbExigence exigence){
+    	 this.exigence=exigence;
+	}
+	
 	public void setIdStb(int id_stb){
 		this.id_stb=id_stb;
 	}
+	
+	 public void setExigenceList(List<StbExigence> exigences) {
+	        this.exigences = exigences;
+	    }
+		
 }

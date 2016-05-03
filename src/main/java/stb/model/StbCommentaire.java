@@ -2,10 +2,14 @@ package stb.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name ="commentaire")
+@XmlAccessorType(XmlAccessType.NONE)
 public class StbCommentaire {
-	
 	/** 
 	 * Attributs 
 	 * */
@@ -13,13 +17,11 @@ public class StbCommentaire {
 	private int id_commentaire;
 	 
 	 @XmlElement
-	private int id_project;
+	private String project;
 	 
 	 @XmlElement
-	private int id_organisme;
+	private String organismeComment;
 	 
-	 @XmlElement
-	private int id_memberEquipe;
 	 
 	 @XmlElement
 	private String informations;
@@ -27,11 +29,10 @@ public class StbCommentaire {
 	/** 
 	 * COnstructors
 	 * */
-	public StbCommentaire(int id_commentaire, int id_project, int id_organisme, int id_memberEquipe, String information){
+	public StbCommentaire(int id_commentaire, String project, String organisme, String information){
 		this.id_commentaire=id_commentaire;
-		this.id_project =id_project;
-		this.id_organisme=id_organisme;
-		this.id_memberEquipe=id_memberEquipe;
+		this.project =project;
+		this.organismeComment=organisme;
 		this.informations=informations;
 	}
 	
@@ -47,17 +48,14 @@ public class StbCommentaire {
 		return id_commentaire;
 	}
 	
-	public int getIdProject(){
-		return id_project;
+	public String getProject(){
+		return project;
 	}
 	
-	public int getIdOrganisme(){
-		return id_organisme;
+	public String getOrganisme(){
+		return organismeComment;
 	}
 	
-	public int getIdMemberEquipe(){
-		return id_memberEquipe;
-	}
 	
 	public String getInformation( ){
 		return informations;
@@ -71,16 +69,12 @@ public class StbCommentaire {
 		this.id_commentaire=id_commentaire;
 	}
 	
-	public void setIdProject(int id_project){
-		this.id_project=id_project;
+	public void setProject(String project){
+		this.project=project;
 	}
 	
-	public void setIdOrganisme(int id_organisme){
-		this.id_organisme= id_organisme;
-	}
-	
-	public void setIdMemberEquipe(int id_memberEquipe){
-		this.id_memberEquipe= id_memberEquipe;
+	public void setOrganisme(String organisme){
+		this.organismeComment= organisme;
 	}
 	
 	public void setInformation(String informations){

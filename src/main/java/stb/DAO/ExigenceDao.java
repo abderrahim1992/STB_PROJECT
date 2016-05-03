@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.RowMapper;
 import stb.model.STB;
 import stb.model.StbEquipe;
 import stb.model.StbExigence;
+import stb.model.StbFonctionnalites;
 
 public class ExigenceDao implements StbDAO {
 	
@@ -24,28 +25,35 @@ public class ExigenceDao implements StbDAO {
 	}
 
 	@Override
-	public void saveOrUpdate(Object stb) {
+	public void saveOrUpdate(STB stb) {
 		// TODO Auto-generated method stub
-		StbExigence exg=((STB) stb).getExigence();
+		StbFonctionnalites fct=stb.getFonctionnalites();
+		StbExigence exg= fct.getExigence();
 		String description=exg.getDescription();
 		int priorite=exg.getPriorite();
 		int idFctnl=exg.getIdFonctionnalite();
-		String sql = "INSERT INTO exigences (description, priorite, id_fonctionalite)"
-                + " VALUES ('"+description+"','"+priorite+"','"+1+"')";
+		
+		//select the last stb stocked
+        String query = "SELECT max(stb_id) FROM stbType";
+		@SuppressWarnings("deprecation")
+		int stbId=jdbcTemplate.queryForInt(query);
+		
+		String query2 = "SELECT max(fonctionnalite_id) FROM fonctionnalites WHERE id_stb='"+stbId+"'";
+		int fonctId=jdbcTemplate.queryForInt(query2);
+		
+		String sql = "INSERT INTO exigences (description, priorite, id_fonctionalite, id_stb)"
+                + " VALUES ('"+description+"','"+priorite+"','"+fonctId+"','"+stbId+"')";
 		 jdbcTemplate.execute(sql);
 	}
 
+	
 	@Override
-	public void delete(int exigenceId) {
+	public StbExigence get(int stbId) {
 		// TODO Auto-generated method stub
-		String sql = "DELETE FROM exigences WHERE exigenceId=?";
-	    jdbcTemplate.update(sql, exigenceId);
-	}
-
-	@Override
-	public StbExigence get(int exgId) {
-		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM exigences WHERE exigenceId=" + exgId;
+		String query = "SELECT id_fonctionnalite FROM fonctionnalites WHERE id_stb=" + stbId;
+		@SuppressWarnings("deprecation")
+		int fonctionnaliteId=jdbcTemplate.queryForInt(query);
+		String sql = "SELECT * FROM exigences WHERE id_fonctionalite=" + fonctionnaliteId;
 		return jdbcTemplate.query(sql, new ResultSetExtractor<StbExigence>() {
 	        @Override
 	        public StbExigence extractData(ResultSet rs) throws SQLException,
@@ -65,25 +73,21 @@ public class ExigenceDao implements StbDAO {
 	    });
 	}
 	
-	public List<Object> list() {
-		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM exigences";
-		List<Object> listExigence = jdbcTemplate.query(sql, new RowMapper<Object>() {
-			 
-		        @Override
-		        public StbExigence mapRow(ResultSet rs, int rowNum) throws SQLException {
-		        	StbExigence exg = new StbExigence();
-		        	exg.setIdExigence(rs.getInt("exgId"));
-		        	exg.setDescription(rs.getString("description"));
-		        	exg.setPriorite(rs.getInt("priorite"));
-		        	exg.setIdFonctionnalite(rs.getInt("id_fonctionalite"));
-	            	
-	                return exg;
-		        }
-		 
-		    });
-		 
-		    return listExigence;
-		}
-	
+	public List<StbExigence> list(int stbId) {
+		String query = "SELECT id_fonctionnalite FROM fonctionnalites WHERE id_stb=" + stbId;
+		@SuppressWarnings("deprecation")
+		int fctId=jdbcTemplate.queryForInt(query);
+		String sql = "SELECT * FROM exigences WHERE id_fonctionalite=" + fctId;
+	    List<StbExigence> listExigence = jdbcTemplate.query(sql, new RowMapper<StbExigence>() {
+	        @Override
+	        public StbExigence mapRow(ResultSet rs, int rowNum) throws SQLException {
+	        	StbExigence exigence = new StbExigence();
+                exigence.setDescription(rs.getString("description"));
+                exigence.setPriorite(rs.getInt("priorite"));
+                return exigence;
+	        }
+	 
+	    });
+	    return listExigence;
+	}
 }

@@ -50,6 +50,7 @@ public class StbController {
 	private Date stbDate;
 	@Autowired
 	private StbDAO StbDao;
+	private StbDaoImpl stbImpl;
 	private ClientDAO  clientDao;
 	private CommentaireDao commentaire;
 	private EquipeDao equipe;
@@ -67,12 +68,14 @@ public class StbController {
 		equipe=new EquipeDao(getDataSource());
 		exigence=new ExigenceDao(getDataSource());
 		fonctionnalite=new FonctionnalitesDao(getDataSource());
+		stbImpl=new StbDaoImpl(getDataSource());
 	}
 	
 	@RequestMapping(value = "/resume")
 	public @ResponseBody ListStb getAllStb() {
+		initDao();
 		ListStb stbLst = new ListStb();
-		List<Object> lst = StbDao.list();
+		List<Object> lst = stbImpl.list();
 		for (int i = 0; i < lst.size(); i++) {
 			stbLst.getStbList().add((STB) lst.get(i));
 		}
@@ -102,10 +105,15 @@ public class StbController {
 //		System.out.println("\n\n\npriorite = " + exigence.getPriorite() + " fonc = " + fonctionnalite.getDescription());
 //		System.out.println("nom client : " + client.getNomClient());
 		initDao();
-		clientDao.saveOrUpdate(stb);
 		StbDao.saveOrUpdate(stb);
+		clientDao.saveOrUpdate(stb);
+		equipe.saveOrUpdate(stb);
+		commentaire.saveOrUpdate(stb);
+		fonctionnalite.saveOrUpdate(stb);
+		exigence.saveOrUpdate(stb);
+		int id=21;
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(stb.getID()).toUri());
+		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(id).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	
@@ -130,10 +138,7 @@ public class StbController {
 
 	@RequestMapping(value = "/resume/{id}")
 	public @ResponseBody STB getStbById(@PathVariable("id") int id) {
-		if (id == 1) {
-			STB stb = (STB) StbDao.get(1);
+			STB stb = (STB) StbDao.get(id);
 			return stb;
-		}
-		return null;
 	}
 }

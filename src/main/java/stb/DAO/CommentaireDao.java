@@ -23,30 +23,31 @@ public class CommentaireDao implements StbDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	@Override
-	public void saveOrUpdate(Object stb) {
+	public void saveOrUpdate(STB stb) {
 		// TODO Auto-generated method stub
 		
-		StbCommentaire cmt=((STB) stb).getCommentaire();
+		StbCommentaire cmt=stb.getCommentaire();
 		
-		int id_project=cmt.getIdCommentaire();
-		int id_organisme=cmt.getIdOrganisme();
+		String project=cmt.getProject();
+		String organisme=cmt.getOrganisme();
 		String information=cmt.getInformation();
-		 String sql = "INSERT INTO commentaire (id_project, id_organisme, id_membreEquipe, informations)"
-                 + " VALUES (1,1,2,'"+information+"')";
+		
+		//select the last stb stocked
+        String query = "SELECT max(stb_id) FROM stbType";
+		@SuppressWarnings("deprecation")
+		int stbId=jdbcTemplate.queryForInt(query);
+		
+		 String sql = "INSERT INTO commentaire (id_project, id_organisme, id_membreEquipe, informations , id_stb)"
+                 + " VALUES ('"+project+"','"+organisme+"','"+information+"','"+stbId+"')";
 		 jdbcTemplate.execute(sql);
 	}
 
-	@Override
-	public void delete(int commentaireId) {
-		// TODO Auto-generated method stub
-		String sql = "DELETE FROM commentaire WHERE stb_id=?";
-	    jdbcTemplate.update(sql, commentaireId);
-	}
+	
 
 	@Override
-	public Object get(int commentaireId) {
+	public StbCommentaire get(int stbId) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM commentaire WHERE id_commentaire=" + commentaireId;
+		String sql = "SELECT * FROM commentaire WHERE id_stb=" + stbId;
 	    return jdbcTemplate.query(sql, new ResultSetExtractor<StbCommentaire>() {
 	 
 	        @Override
@@ -55,8 +56,8 @@ public class CommentaireDao implements StbDAO {
 	            if (rs.next()) {
 	            	StbCommentaire comment = new StbCommentaire();
 	            	comment.setIdCommentaire(rs.getInt("id_commentaire"));
-	            	comment.setIdOrganisme(rs.getInt("id_organisme"));
-	            	comment.setIdMemberEquipe(rs.getInt("id_membreEquipe"));
+	            	comment.setProject(rs.getString("project"));
+	            	comment.setOrganisme(rs.getString("organisme"));
 	            	comment.setInformation(rs.getString("informations"));
 	                return comment;
 	            }
@@ -75,8 +76,8 @@ public class CommentaireDao implements StbDAO {
 		        public StbCommentaire mapRow(ResultSet rs, int rowNum) throws SQLException {
 		        	StbCommentaire cmt = new StbCommentaire();
 		        	cmt.setIdCommentaire(rs.getInt("id_commentaire"));
-		        	cmt.setIdOrganisme(rs.getInt("id_organisme"));
-		        	cmt.setIdMemberEquipe(rs.getInt("id_membreEquipe"));
+		        	cmt.setProject(rs.getString("project"));
+		        	cmt.setOrganisme(rs.getString("organisme"));
 		        	cmt.setInformation(rs.getString("informations"));
 	                return cmt;
 		        }

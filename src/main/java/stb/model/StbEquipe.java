@@ -2,10 +2,13 @@ package stb.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="equipe")
+@XmlAccessorType(XmlAccessType.NONE)
 public class StbEquipe {
 	
 	/** 
@@ -26,15 +29,18 @@ public class StbEquipe {
 	 @XmlElement
 	private String genderMembre;
 	
+	 @XmlElement
+	private String contactMembre;
 	/** 
 	 * Constructors
 	 * */
-	public StbEquipe(int id_membre, int id_stb, String nom, String prenom, String gender ){
+	public StbEquipe(int id_membre, int id_stb, String nom, String prenom, String gender, String contactMembre ){
 		this.id_membre=id_membre;
 		this.id_stb=id_stb;
 		this.nomMembre=nom;
 		this.prenomMembre=prenom;
 		this.genderMembre=gender;
+		this.contactMembre=contactMembre;
 	}
 	
 	public StbEquipe(){
@@ -62,6 +68,9 @@ public class StbEquipe {
 		return genderMembre;
 	}
 	
+	public String getContact(){
+		return contactMembre;
+	}
 	/** 
 	 * Setters
 	 * */
@@ -81,5 +90,8 @@ public class StbEquipe {
 	}
 	public void setGender(String gender){
 		this.genderMembre= gender;
+	}
+	public void setContact(String contact){
+		this.contactMembre= contact;
 	}
 }

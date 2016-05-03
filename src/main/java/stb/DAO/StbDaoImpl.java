@@ -29,12 +29,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import stb.model.STB;
 import stb.model.StbClient;
+import stb.model.StbCommentaire;
+import stb.model.StbEquipe;
+import stb.model.StbFonctionnalites;
 
 public class StbDaoImpl implements StbDAO {
 	 private JdbcTemplate jdbcTemplate;
@@ -50,13 +54,16 @@ public class StbDaoImpl implements StbDAO {
 	 String rue;
 	 String ville ;
 	 int code;
-	 
+	 StbClient client;
+	 StbFonctionnalites fonctionnalite;
+	 StbEquipe equipe;
+	 StbCommentaire comment;
 	public StbDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
-	public 	void saveOrUpdate(Object stb){
+	public 	void saveOrUpdate(STB stb){
 		// TODO Auto-generated method stub
 //		 if (stb.getID() == 1) {
 //		        // update
@@ -68,25 +75,16 @@ public class StbDaoImpl implements StbDAO {
 		        // insert
 //			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 //			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-//	
+//
 //			StreamResult result = new StreamResult(new StringWriter());
 //			DOMSource source = new DOMSource(stb.getID());
 //			transformer.transform(source, result);
 //			String xmlString = result.getWriter().toString();
 //			System.out.println(xmlString);
-					 StbClient client=((STB) stb).getClient();
-                     titre=((STB) stb).getTitre();
-                     version=((STB) stb).getVersion();
-                     date =  ((STB) stb).getDate();
-                     description =  ((STB) stb).getDescription();
-                     nom =  client.getNomClient();
-//                     prenom =  client.getPrenomClient();
-//                     gen =  client.getGenderClient();
-//                     contact =  client.getContactClient();
-//                     num =  client.getnumRue();
-//                     rue =  client.getNomRue();
-//                     ville = client.getNomVille();
-//                     code =  client.getCode();
+                     titre= stb.getTitre();
+                     version= stb.getVersion();
+                     date =   stb.getDate();
+                     description =  stb.getDescription();
                      String sql =  "INSERT INTO stbType (titre, version, date, description, nom_client, " +
 		        			  "prenom_client, gender_client,  num_rue, nom_rue, nom_ville, code_postal,contact_client)"
 		                    + " VALUES ('"+titre+"','"+version+"','"+date+"','"+description+"','"+nom+"','"+prenom+
@@ -99,19 +97,15 @@ public class StbDaoImpl implements StbDAO {
 	}
 	
 	@Override
-	public void delete(int stbId) {
-		// TODO Auto-generated method stub
-		String sql = "DELETE FROM stbType WHERE stb_id=?";
-	    jdbcTemplate.update(sql, stbId);
-		
-	}
-
-	@Override
 	public STB get(int stbId) {
 		// TODO Auto-generated method stub
+		
 		String sql = "SELECT * FROM stbType WHERE stb_id=" + stbId;
+		client = new ClientDAO(getDataSource()).get(stbId);
+		equipe = new EquipeDao(getDataSource()).get(stbId);
+		fonctionnalite=new FonctionnalitesDao(getDataSource()).get(stbId);
+		comment=new CommentaireDao(getDataSource()).get(stbId);
 	    return jdbcTemplate.query(sql, new ResultSetExtractor<STB>() {
-	 
 	        @Override
 	        public STB extractData(ResultSet rs) throws SQLException,
 	                DataAccessException {
@@ -122,14 +116,10 @@ public class StbDaoImpl implements StbDAO {
 	                stb.setVersion(rs.getString("version"));
 	                stb.setDate(rs.getString("date"));
 	                stb.setDescription(rs.getString("description"));
-//	                stb.getClient().setNomClient(rs.getString("nom_client"));
-//	                stb.getClient().setPrenomClient(rs.getString("prenom_client"));
-//	                stb.getClient().setGenderClient(rs.getString("gender_client"));
-//	                stb.getClient().setContactClient(rs.getInt("contact_client"));
-//	                stb.getClient().setnumRue(rs.getInt("num_rue"));
-//	                stb.getClient().setNomRue(rs.getString("nom_rue"));
-//	                stb.getClient().setNomVille(rs.getString("nom_ville"));
-//	                stb.getClient().setCode(rs.getInt("code_postal"));
+	                stb.setClient(client);
+	                stb.setEquipe(equipe);
+	                stb.setFonctionnalite(fonctionnalite);
+	                stb.setCommentaire(comment);
 	                return stb;
 	            }
 	            return null;
@@ -149,18 +139,36 @@ public class StbDaoImpl implements StbDAO {
                 stb.setVersion(rs.getString("version"));
                 stb.setDate(rs.getString("date"));
                 stb.setDescription(rs.getString("description"));
-//                stb.getClient().setNomClient(rs.getString("nom_client"));
-//                stb.getClient().setPrenomClient(rs.getString("prenom_client"));
-//                stb.getClient().setGenderClient(rs.getString("gender_client"));
-//                stb.getClient().setContactClient(rs.getInt("contact_client"));
-//                stb.getClient().setnumRue(rs.getInt("num_rue"));
-//                stb.getClient().setNomRue(rs.getString("nom_rue"));
-//                stb.getClient().setNomVille(rs.getString("nom_ville"));
-//                stb.getClient().setCode(rs.getInt("code_postal"));
                 return stb;
 	        }
 	 
 	    });
 	    return listStb;
+	}
+	
+	public int getMaxStbId() {
+		String query = "SELECT max(stb_id) FROM stbType";
+		@SuppressWarnings("deprecation")
+		int id = jdbcTemplate.queryForInt(query);
+	    return id;
+	}
+	
+	public DataSource getDataSource() {
+		String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+        host = "127.0.0.1";
+        port = "3306";
+        String dbName = "stb";
+		String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+		user = "root";
+		passwd = "";
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl(url);
+		dataSource.setUsername(user);
+		dataSource.setPassword( passwd );
+		return dataSource;
 	}
 }

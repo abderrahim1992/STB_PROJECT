@@ -24,30 +24,31 @@ public class EquipeDao implements StbDAO {
 	}
 
 	@Override
-	public void saveOrUpdate(Object stb) {
+	public void saveOrUpdate(STB stb) {
 		// TODO Auto-generated method stub
 		
-		StbEquipe mbr=((STB) stb).getEquipe();
-		
+		StbEquipe mbr= stb.getEquipe();
 		String nom=mbr.getNom();
 		String prenom=mbr.getPrenom();
-		String gender=mbr.getGender();
+		String gender="masculin";
+		String contact=mbr.getContact();
+		
+		//select the last stb stocked
+        String query = "SELECT max(stb_id) FROM stbType";
+		@SuppressWarnings("deprecation")
+		int stbId=jdbcTemplate.queryForInt(query);
+		
 		String sql = "INSERT INTO membreEquipe (nom, prenom, gender, id_stb)"
-                + " VALUES ('"+nom+"','"+prenom+"','"+gender+"',1)";
+                + " VALUES ('"+nom+"','"+prenom+"','"+gender+"','"+contact+"','"+stbId+"')";
 		 jdbcTemplate.execute(sql);
 	}
 
-	@Override
-	public void delete(int equipeId) {
-		// TODO Auto-generated method stub
-		String sql = "DELETE FROM membreEquipe WHERE id_membre=?";
-	    jdbcTemplate.update(sql, equipeId);
-	}
+	
 
 	@Override
-	public StbEquipe get(int membrId) {
+	public StbEquipe get(int stbId) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM membreEquipe WHERE id_membre=" + membrId;
+		String sql = "SELECT * FROM membreEquipe WHERE id_stb=" + stbId;
 	    return jdbcTemplate.query(sql, new ResultSetExtractor<StbEquipe>() {
 	        @Override
 	        public StbEquipe extractData(ResultSet rs) throws SQLException,
@@ -58,7 +59,8 @@ public class EquipeDao implements StbDAO {
 	            	equipe.setNom(rs.getString("nom"));
 	            	equipe.setPrenom(rs.getString("prenom"));
 	            	equipe.setGender(rs.getString("gender"));
-	            	equipe.setIdStb(rs.getInt("id_stb"));
+	            	equipe.setContact(rs.getString("contact"));
+	            	
 	                return equipe;
 	            }
 	            return null;
@@ -66,27 +68,4 @@ public class EquipeDao implements StbDAO {
 	 
 	    });
 	}
-
-	
-	public List<Object> list() {
-		// TODO Auto-generated method stub
-		String sql = "SELECT * FROM membreEquipe";
-		List<Object> listEquip = jdbcTemplate.query(sql, new RowMapper<Object>() {
-			 
-		        @Override
-		        public StbEquipe mapRow(ResultSet rs, int rowNum) throws SQLException {
-		        	StbEquipe eqp = new StbEquipe();
-		        	eqp.setIdMember(rs.getInt("id_membre"));
-		        	eqp.setNom(rs.getString("nom"));
-		        	eqp.setPrenom(rs.getString("prenom"));
-		        	eqp.setGender(rs.getString("gender"));
-		        	eqp.setIdStb(rs.getInt("id_stb"));		            
-		        	
-		        	return eqp;
-		        }
-		 
-		    });
-		 
-		    return listEquip;
-		}
 }
