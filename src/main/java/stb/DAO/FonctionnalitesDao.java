@@ -77,7 +77,7 @@ public class FonctionnalitesDao implements StbDAO {
 		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 		user = "root";
-		passwd = "";
+		passwd = "root";
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(url);

@@ -30,7 +30,7 @@ public class ExigenceDao implements StbDAO {
 		// TODO Auto-generated method stub
 		StbFonctionnalites fct=stb.getFonctionnalites();
 		List<StbExigence> exigences= fct.getListExigence();
-		
+		System.out.println("***********" + exigences + "***********");		
 		//select the last stb stocked
         String query = "SELECT max(stb_id) FROM stbType";
 		@SuppressWarnings("deprecation")
