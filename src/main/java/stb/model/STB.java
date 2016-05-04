@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -40,12 +41,14 @@ public class STB implements Serializable
    	private StbClient client;
     
     @XmlElement
-    private StbEquipe equipe;
+    private StbEquipe membre;
+    
+    @XmlElementWrapper(name="listEquipe")
+   	@XmlElement(name="membre")
+   	private List<StbEquipe> listEquipe;
     
     @XmlElement
 	private StbFonctionnalites fonctionnalites;
-    
-   
     
     @XmlElement
     private StbCommentaire commentaire;
@@ -92,7 +95,7 @@ public class STB implements Serializable
     }
     
     public StbEquipe getEquipe(){
-    	return equipe;
+    	return membre;
     }
     
     public StbFonctionnalites getFonctionnalites(){
@@ -103,6 +106,10 @@ public class STB implements Serializable
     
     public StbCommentaire getCommentaire(){
     	return commentaire;
+    }
+    
+    public List<StbEquipe> getListEquipe(){
+    	return listEquipe;
     }
     
     //setter	
@@ -131,8 +138,12 @@ public class STB implements Serializable
     	this.client=stbclient; 
     }
     
+    public  void setListEquipe(List<StbEquipe> listEquipe){
+    	this.listEquipe=listEquipe;
+    }
+    
     public void setEquipe(StbEquipe mbr){
-    	this.equipe=mbr; 
+    	this.membre=mbr; 
     }
     
     public void setFonctionnalite(StbFonctionnalites stbFonctionnalite){

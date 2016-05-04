@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import stb.model.STB;
 import stb.model.StbCommentaire;
 import stb.model.StbEquipe;
+import stb.model.StbExigence;
+import stb.model.StbFonctionnalites;
 
 public class EquipeDao implements StbDAO {
 
@@ -27,20 +29,22 @@ public class EquipeDao implements StbDAO {
 	public void saveOrUpdate(STB stb) {
 		// TODO Auto-generated method stub
 		
-		StbEquipe mbr= stb.getEquipe();
-		String nom=mbr.getNom();
-		String prenom=mbr.getPrenom();
-		String gender="masculin";
-		String contact=mbr.getContact();
-		
+		List<StbEquipe> listEquipe=stb.getListEquipe();
 		//select the last stb stocked
         String query = "SELECT max(stb_id) FROM stbType";
 		@SuppressWarnings("deprecation")
 		int stbId=jdbcTemplate.queryForInt(query);
 		
-		String sql = "INSERT INTO membreEquipe (nom, prenom, gender,  contact , id_stb)"
-                + " VALUES ('"+nom+"','"+prenom+"','"+gender+"','"+contact+"','"+stbId+"')";
-		 jdbcTemplate.execute(sql);
+		for (StbEquipe euipe : listEquipe){
+			String nom=euipe.getNom();
+			String prenom=euipe.getPrenom();
+			String gender="masculin";
+			String contact=euipe.getContact();
+			String sql = "INSERT INTO membreEquipe (nom, prenom, gender,  contact , id_stb)"
+	                + " VALUES ('"+nom+"','"+prenom+"','"+gender+"','"+contact+"','"+stbId+"')";
+			 jdbcTemplate.execute(sql);
+		}
+		
 	}
 
 	
@@ -67,5 +71,23 @@ public class EquipeDao implements StbDAO {
 	        }
 	 
 	    });
+	}
+	
+	public List<StbEquipe> list(int stbId) {
+		
+		String sql = "SELECT * FROM membreEquipe WHERE id_stb=" + stbId;
+	    List<StbEquipe> listEquipe = jdbcTemplate.query(sql, new RowMapper<StbEquipe>() {
+	        @Override
+	        public StbEquipe mapRow(ResultSet rs, int rowNum) throws SQLException {
+	        	StbEquipe equipe = new StbEquipe();
+	        	equipe.setNom(rs.getString("nom"));
+            	equipe.setPrenom(rs.getString("prenom"));
+            	equipe.setGender(rs.getString("gender"));
+            	equipe.setContact(rs.getString("contact"));
+                return equipe;
+	        }
+	 
+	    });
+	    return listEquipe;
 	}
 }

@@ -56,7 +56,7 @@ public class StbDaoImpl implements StbDAO {
 	 int code;
 	 StbClient client;
 	 StbFonctionnalites fonctionnalite;
-	 StbEquipe equipe;
+	 List<StbEquipe> equipe;
 	 StbCommentaire comment;
 	public StbDaoImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -100,7 +100,7 @@ public class StbDaoImpl implements StbDAO {
 		
 		String sql = "SELECT * FROM stbType WHERE stb_id=" + stbId;
 		client = new ClientDAO(getDataSource()).get(stbId);
-		equipe = new EquipeDao(getDataSource()).get(stbId);
+		equipe = new EquipeDao(getDataSource()).list(stbId);
 		fonctionnalite=new FonctionnalitesDao(getDataSource()).get(stbId);
 		comment=new CommentaireDao(getDataSource()).get(stbId);
 	    return jdbcTemplate.query(sql, new ResultSetExtractor<STB>() {
@@ -115,7 +115,7 @@ public class StbDaoImpl implements StbDAO {
 	                stb.setDate(rs.getString("date"));
 	                stb.setDescription(rs.getString("description"));
 	                stb.setClient(client);
-	                stb.setEquipe(equipe);
+	                stb.setListEquipe(equipe);
 	                stb.setFonctionnalite(fonctionnalite);
 	                stb.setCommentaire(comment);
 	                return stb;
@@ -161,7 +161,7 @@ public class StbDaoImpl implements StbDAO {
 		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 		user = "root";
-		passwd = "root";
+		passwd = "";
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(url);

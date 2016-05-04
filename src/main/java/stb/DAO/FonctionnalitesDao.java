@@ -57,7 +57,7 @@ public class FonctionnalitesDao implements StbDAO {
 	            	fonctionnalite.setIdFonctionnalite(rs.getInt("id_fonctionnalite"));
 	            	fonctionnalite.setDescription(rs.getString("description"));
 	            	fonctionnalite.setPriorite(rs.getInt("priorite"));
-	            	//fonctionnalite.setExigenceList(exigence);
+	            	fonctionnalite.setExigenceList(exigence);
 	            	fonctionnalite.setIdStb(rs.getInt("id_stb"));
 	                return fonctionnalite;
 	            }
@@ -77,7 +77,7 @@ public class FonctionnalitesDao implements StbDAO {
 		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 		user = "root";
-		passwd = "root";
+		passwd = "";
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(url);

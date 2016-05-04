@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="equipe")
+@XmlRootElement(name="membre")
 @XmlAccessorType(XmlAccessType.NONE)
 public class StbEquipe {
 	
