@@ -41,6 +41,7 @@ import stb.DAO.StbDaoImpl;
 import stb.model.ListStb;
 import stb.model.STB;
 import stb.model.StbClient;
+import stb.model.StbCommentaire;
 import stb.model.StbEquipe;
 import stb.model.StbExigence;
 import stb.model.StbFonctionnalites;

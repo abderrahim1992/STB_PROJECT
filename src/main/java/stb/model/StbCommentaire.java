@@ -7,8 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name ="commentaire")
+
+
 @XmlAccessorType(XmlAccessType.NONE)
+@XmlRootElement(name = "commentaire")
 public class StbCommentaire {
 	/** 
 	 * Attributs 

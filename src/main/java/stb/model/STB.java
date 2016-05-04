@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement (name = "stb")
 @XmlAccessorType(XmlAccessType.NONE)
 public class STB implements Serializable 
@@ -147,4 +148,5 @@ public class STB implements Serializable
         return "stb [id=" + id + ", titre_project=" + projectTitle
                 + ", version=" + stbVersion + ", date=" + stbDate +", discription="+description+"]";
     }
+
 }
