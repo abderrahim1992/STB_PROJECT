@@ -37,7 +37,7 @@ public class CommentaireDao implements StbDAO {
 		@SuppressWarnings("deprecation")
 		int stbId=jdbcTemplate.queryForInt(query);
 		
-		 String sql = "INSERT INTO commentaire (id_project, id_organisme, id_membreEquipe, informations , id_stb)"
+		 String sql = "INSERT INTO commentaire (project, organisme, informations , id_stb)"
                  + " VALUES ('"+project+"','"+organisme+"','"+information+"','"+stbId+"')";
 		 jdbcTemplate.execute(sql);
 	}

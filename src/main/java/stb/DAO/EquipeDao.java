@@ -38,7 +38,7 @@ public class EquipeDao implements StbDAO {
 		@SuppressWarnings("deprecation")
 		int stbId=jdbcTemplate.queryForInt(query);
 		
-		String sql = "INSERT INTO membreEquipe (nom, prenom, gender, id_stb)"
+		String sql = "INSERT INTO membreEquipe (nom, prenom, gender,  contact , id_stb)"
                 + " VALUES ('"+nom+"','"+prenom+"','"+gender+"','"+contact+"','"+stbId+"')";
 		 jdbcTemplate.execute(sql);
 	}

@@ -32,7 +32,7 @@ public class StbFonctionnalites {
 	 private StbExigence exigence;
 	
 	 @XmlElement
-	 private List<StbExigence> exigences = new ArrayList<StbExigence>();
+	 private List<StbExigence> listExigence;
 	/** 
 	 * Constructors
 	 * */
@@ -52,11 +52,6 @@ public class StbFonctionnalites {
 	 * Getters
 	 * */
 	
-	
-	 
-    public List<StbExigence> getStbList() {
-        return exigences;
-    }
  
 	public int getIdFonctionnalite(){
 		return id_fonctionnalite;
@@ -77,6 +72,11 @@ public class StbFonctionnalites {
 	public StbExigence getExigence (){
 	    	return exigence;
 	}
+	
+	public List<StbExigence> getListExigence (){
+    	return listExigence;
+}
+	
 	
 	/** 
 	 * Setters
@@ -103,7 +103,7 @@ public class StbFonctionnalites {
 	}
 	
 	 public void setExigenceList(List<StbExigence> exigences) {
-	        this.exigences = exigences;
+	        this.listExigence = exigences;
 	    }
 		
 }

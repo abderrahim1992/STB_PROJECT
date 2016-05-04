@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
+
 import stb.model.STB;
 import stb.model.StbEquipe;
 import stb.model.StbExigence;
@@ -28,22 +29,23 @@ public class ExigenceDao implements StbDAO {
 	public void saveOrUpdate(STB stb) {
 		// TODO Auto-generated method stub
 		StbFonctionnalites fct=stb.getFonctionnalites();
-		StbExigence exg= fct.getExigence();
-		String description=exg.getDescription();
-		int priorite=exg.getPriorite();
-		int idFctnl=exg.getIdFonctionnalite();
+		List<StbExigence> exigences= fct.getListExigence();
 		
 		//select the last stb stocked
         String query = "SELECT max(stb_id) FROM stbType";
 		@SuppressWarnings("deprecation")
 		int stbId=jdbcTemplate.queryForInt(query);
 		
-		String query2 = "SELECT max(fonctionnalite_id) FROM fonctionnalites WHERE id_stb='"+stbId+"'";
+		String query2 = "SELECT max(id_fonctionnalite) FROM fonctionnalites WHERE id_stb='"+stbId+"'";
 		int fonctId=jdbcTemplate.queryForInt(query2);
+		for(StbExigence exigence : exigences){
+			String description=exigence.getDescription();
+			int priorite=exigence.getPriorite();
+			String sql = "INSERT INTO exigences (description, priorite, id_fonctionalite, id_stb)"
+	                + " VALUES ('"+description+"','"+priorite+"','"+fonctId+"','"+stbId+"')";
+			 jdbcTemplate.execute(sql);
+		}
 		
-		String sql = "INSERT INTO exigences (description, priorite, id_fonctionalite, id_stb)"
-                + " VALUES ('"+description+"','"+priorite+"','"+fonctId+"','"+stbId+"')";
-		 jdbcTemplate.execute(sql);
 	}
 
 	

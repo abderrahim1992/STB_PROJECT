@@ -57,7 +57,7 @@ public class FonctionnalitesDao implements StbDAO {
 	            	fonctionnalite.setIdFonctionnalite(rs.getInt("id_fonctionnalite"));
 	            	fonctionnalite.setDescription(rs.getString("description"));
 	            	fonctionnalite.setPriorite(rs.getInt("priorite"));
-	            	fonctionnalite.setExigenceList(exigence);
+	            	//fonctionnalite.setExigenceList(exigence);
 	            	fonctionnalite.setIdStb(rs.getInt("id_stb"));
 	                return fonctionnalite;
 	            }

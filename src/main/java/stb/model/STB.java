@@ -39,7 +39,7 @@ public class STB implements Serializable
    	private StbClient client;
     
     @XmlElement
-    private StbEquipe membre;
+    private StbEquipe equipe;
     
     @XmlElement
 	private StbFonctionnalites fonctionnalites;
@@ -91,7 +91,7 @@ public class STB implements Serializable
     }
     
     public StbEquipe getEquipe(){
-    	return membre;
+    	return equipe;
     }
     
     public StbFonctionnalites getFonctionnalites(){
@@ -131,7 +131,7 @@ public class STB implements Serializable
     }
     
     public void setEquipe(StbEquipe mbr){
-    	this.membre=mbr; 
+    	this.equipe=mbr; 
     }
     
     public void setFonctionnalite(StbFonctionnalites stbFonctionnalite){

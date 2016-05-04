@@ -50,15 +50,12 @@ public class AdresseDao implements StbDAO{
 				String query2 = "SELECT max(id_client) FROM client WHERE id_stb='"+stbId+"'";
 				int clienttId=jdbcTemplate.queryForInt(query2);
 				
-				String sql = "INSERT INTO exigences (numRue, nomRue, nomVille, code, id_client, id_stb)"
+				String sql = "INSERT INTO adresse (numRue, nomRue, nomVille, code, id_client, id_stb)"
 		                + " VALUES ('"+numRue+"','"+nomRue+"','"+ville+"','"+code+"','"+clienttId+"','"+stbId+"')";
 				 jdbcTemplate.execute(sql);
 		
-		
-		
 	}
 
-	
 
 	@Override
 	public Object get(int stbID) {
@@ -66,7 +63,7 @@ public class AdresseDao implements StbDAO{
 		String query = "SELECT id_client FROM client WHERE id_stb=" + stbID;
 		@SuppressWarnings("deprecation")
 		int clientId=jdbcTemplate.queryForInt(query);
-		String sql = "SELECT * FROM adresse WHERE id_stb=" + clientId;
+		String sql = "SELECT * FROM adresse WHERE id_client=" + clientId;
 		return jdbcTemplate.query(sql, new ResultSetExtractor<Adresse>() {
 	        @Override
 	        public Adresse extractData(ResultSet rs) throws SQLException,
@@ -76,7 +73,6 @@ public class AdresseDao implements StbDAO{
 	            	adresse.setnumRue(rs.getInt("numRue"));
 	            	adresse.setNomRue(rs.getString("nomRue"));
 	            	adresse.setNomVille(rs.getString("nomVille"));
-	            	
 	                return adresse;
 	            }
 	            return null;

@@ -85,10 +85,8 @@ public class StbDaoImpl implements StbDAO {
                      version= stb.getVersion();
                      date =   stb.getDate();
                      description =  stb.getDescription();
-                     String sql =  "INSERT INTO stbType (titre, version, date, description, nom_client, " +
-		        			  "prenom_client, gender_client,  num_rue, nom_rue, nom_ville, code_postal,contact_client)"
-		                    + " VALUES ('"+titre+"','"+version+"','"+date+"','"+description+"','"+nom+"','"+prenom+
-		                    "','"+gen+"','"+num+"','"+rue+"','"+ville+"','"+code+"','"+contact+"')";
+                     String sql =  "INSERT INTO stbType (titre, version, date, description)"
+		                    + "VALUES ('"+titre+"','"+version+"','"+date+"','"+description+"')";
                      jdbcTemplate.execute(sql); 
                         
                

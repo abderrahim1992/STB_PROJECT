@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.xml.sax.SAXException;
 
+import stb.DAO.AdresseDao;
 import stb.DAO.ClientDAO;
 import stb.DAO.CommentaireDao;
 import stb.DAO.EquipeDao;
@@ -56,6 +57,7 @@ public class StbController {
 	private EquipeDao equipe;
 	private ExigenceDao exigence;
 	private FonctionnalitesDao fonctionnalite;
+	private AdresseDao adresse;
 	int id = 1;
 	String titre = "agora";
 	String version = "2.2";
@@ -68,6 +70,7 @@ public class StbController {
 		equipe=new EquipeDao(getDataSource());
 		exigence=new ExigenceDao(getDataSource());
 		fonctionnalite=new FonctionnalitesDao(getDataSource());
+		adresse=new AdresseDao(getDataSource());
 		stbImpl=new StbDaoImpl(getDataSource());
 	}
 	
@@ -111,6 +114,7 @@ public class StbController {
 		commentaire.saveOrUpdate(stb);
 		fonctionnalite.saveOrUpdate(stb);
 		exigence.saveOrUpdate(stb);
+		adresse.saveOrUpdate(stb);
 		int id=21;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(id).toUri());
