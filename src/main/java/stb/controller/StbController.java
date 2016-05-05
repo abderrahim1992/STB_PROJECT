@@ -75,15 +75,18 @@ public class StbController {
 		stbImpl = new StbDaoImpl(getDataSource());
 	}
 
-	@RequestMapping(value = "/resume")
-	public @ResponseBody ListStb getAllStb() {
+	@RequestMapping(value = "/resume", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<ListStb> getAllStb() {
 		initDao();
 		ListStb stbLst = new ListStb();
 		List<Object> lst = stbImpl.list();
+		if (lst.isEmpty()) {
+			return new ResponseEntity<ListStb>(HttpStatus.NO_CONTENT);
+		}
 		for (int i = 0; i < lst.size(); i++) {
 			stbLst.getStbList().add((STB) lst.get(i));
 		}
-		return stbLst;
+		return new ResponseEntity<ListStb>(stbLst, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/accueil")
@@ -127,7 +130,7 @@ public class StbController {
 		fonctionnalite.saveOrUpdate(stb);
 		exigence.saveOrUpdate(stb);
 		adresse.saveOrUpdate(stb);
-//		int id = 21;
+		// int id = 21;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(id).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -150,9 +153,20 @@ public class StbController {
 		return dataSource;
 	}
 
-	@RequestMapping(value = "/resume/{id}")
-	public @ResponseBody STB getStbById(@PathVariable("id") int id) {
+	@RequestMapping(value = "/resume/{id}", method = RequestMethod.GET)
+	public ResponseEntity<STB> getStbById(@PathVariable("id") int id) {
+		if (!stbImpl.existSTB(id)) {
+			return new ResponseEntity<STB>(HttpStatus.NO_CONTENT);
+		}
+		
 		STB stb = (STB) StbDao.get(id);
-		return stb;
+
+		return new ResponseEntity<STB>(stb, HttpStatus.OK);
 	}
+
+	// @RequestMapping(value = "/resume/{id}")
+	// public @ResponseBody STB getStbById(@PathVariable("id") int id) {
+	// STB stb = (STB) StbDao.get(id);
+	// return stb;
+	// }
 }

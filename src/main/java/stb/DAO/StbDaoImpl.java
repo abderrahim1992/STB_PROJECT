@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.sql.DataSource;
 import javax.xml.parsers.DocumentBuilder;
@@ -155,6 +158,21 @@ public class StbDaoImpl implements StbDAO {
 		String query = "SELECT COUNT(stb_id) FROM stbType";
 		int count = jdbcTemplate.queryForInt(query);
 		return count;
+	}
+	
+	public boolean existSTB(int id) {
+		String query = "SELECT stb_id FROM stbType";
+		boolean result = false;
+		List<Map<String, Object>> stIdsList = jdbcTemplate.queryForList(query);
+		for (int i = 0; i < stIdsList.size(); i++) {
+			Iterator<Entry<String, Object>> entries = stIdsList.get(i).entrySet().iterator();
+			while (entries.hasNext()) {
+				if(entries.next().equals(id)) {
+					result = true;
+				}
+			}
+		}
+		return result;
 	}
 	
 	public DataSource getDataSource() {
