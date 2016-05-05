@@ -21,80 +21,77 @@ import stb.model.STB;
 import stb.model.StbClient;
 
 public class ClientDAO implements StbDAO {
-	
+
 	private JdbcTemplate jdbcTemplate;
-	Adresse adresse ;
+	Adresse adresse;
 
 	public ClientDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
-	public ClientDAO(){
-		
+
+	public ClientDAO() {
+
 	}
+
 	@Override
 	public void saveOrUpdate(STB stb) throws FileNotFoundException, ParserConfigurationException, SAXException,
 			IOException, XPathExpressionException {
 		// TODO Auto-generated method stub
 		StbClient client = stb.getClient();
-        String nom =  client.getNomClient();
-        String prenom =  client.getPrenomClient();
-        String gender =  client.getGenderClient();
-        int contact =  client.getContactClient(); 
-        
-        //select the last stb stocked
-        String query = "SELECT max(stb_id) FROM stbType";
-		@SuppressWarnings("deprecation")
-		int stbId=jdbcTemplate.queryForInt(query);
-        
-        String sql =  "INSERT INTO client (nom, prenom, gender, contact, id_stb)"
-              + " VALUES ('"+nom+"','"+prenom+"','"+gender+"','"+contact+"','"+stbId+"')";
-        jdbcTemplate.execute(sql); 
-		
-	}
+		String nom = client.getNomClient();
+		String prenom = client.getPrenomClient();
+		String gender = client.getGenderClient();
+		int contact = client.getContactClient();
 
-	
+		// select the last stb stocked
+		String query = "SELECT max(stb_id) FROM stbType";
+		@SuppressWarnings("deprecation")
+		int stbId = jdbcTemplate.queryForInt(query);
+
+		String sql = "INSERT INTO client (nom, prenom, gender, contact, id_stb)" + " VALUES ('" + nom + "','" + prenom
+				+ "','" + gender + "','" + contact + "','" + stbId + "')";
+		jdbcTemplate.execute(sql);
+
+	}
 
 	@Override
 	public StbClient get(int stbID) {
 		// TODO Auto-generated method stub
-				String sql = "SELECT * FROM client WHERE id_stb=" + stbID;
-				adresse = (Adresse) new AdresseDao(getDataSource()).get(stbID);
-			    return jdbcTemplate.query(sql, new ResultSetExtractor<StbClient>() {
-			        @Override
-			        public StbClient extractData(ResultSet rs) throws SQLException,
-			                DataAccessException {
-			            if (rs.next()) {
-			                StbClient client = new StbClient();
-			                client.setNomClient(rs.getString("nom"));
-			                client.setPrenomClient(rs.getString("prenom"));
-			                client.setGenderClient(rs.getString("gender"));
-			                client.setContactClient(rs.getInt("contact"));
-			                client.setAdresse(adresse);
-			                return client;
-			            }
-			            return null;
-			        }
-			 
-			    });
+		String sql = "SELECT * FROM client WHERE id_stb=" + stbID;
+		adresse = (Adresse) new AdresseDao(getDataSource()).get(stbID);
+		return jdbcTemplate.query(sql, new ResultSetExtractor<StbClient>() {
+			@Override
+			public StbClient extractData(ResultSet rs) throws SQLException, DataAccessException {
+				if (rs.next()) {
+					StbClient client = new StbClient();
+					client.setNomClient(rs.getString("nom"));
+					client.setPrenomClient(rs.getString("prenom"));
+					client.setGenderClient(rs.getString("gender"));
+					client.setContactClient(rs.getInt("contact"));
+					client.setAdresse(adresse);
+					return client;
+				}
+				return null;
+			}
+
+		});
 	}
-	
+
 	public DataSource getDataSource() {
 		String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
-        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-        host = "127.0.0.1";
-        port = "3306";
-        String dbName = "stb";
-		String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+		// String port = "3306";
+		String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+		String dbName = "stb";
+//		String url = "\"jdbc:mysql://" + host + ":" + port + "/" + dbName + "\"";
+//		String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+		String url = "jdbc:mysql://" + "127.11.194.2" + ":" + "3306" + "/" + "stb";
 		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
-		user = "root";
-		passwd = "";
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl(url);
-		dataSource.setUsername(user);
-		dataSource.setPassword( passwd );
+		dataSource.setUsername("adminkmwGWnE");
+		dataSource.setPassword("7ngTMBxe_ai3");
 		return dataSource;
 	}
 }
