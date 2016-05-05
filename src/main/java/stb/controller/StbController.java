@@ -127,7 +127,7 @@ public class StbController {
 		fonctionnalite.saveOrUpdate(stb);
 		exigence.saveOrUpdate(stb);
 		adresse.saveOrUpdate(stb);
-		int id = 21;
+//		int id = 21;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/resume/{id}").buildAndExpand(id).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
