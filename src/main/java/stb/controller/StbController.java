@@ -74,7 +74,6 @@ public class StbController {
 		adresse = new AdresseDao(getDataSource());
 		stbImpl = new StbDaoImpl(getDataSource());
 	}
-	
 
 	@RequestMapping(value = "/resume")
 	public @ResponseBody ListStb getAllStb() {
@@ -85,6 +84,14 @@ public class StbController {
 			stbLst.getStbList().add((STB) lst.get(i));
 		}
 		return stbLst;
+	}
+
+	@RequestMapping(value = "/accueil")
+	public @ResponseBody String getAccueil() {
+		initDao();
+		int stbCount = stbImpl.getStbCount();
+		String homeStr = "Membres :\nAbderrahim SI-ZIANI\nMohamed IBRIHEN\nNombre de STB : " + stbCount;
+		return homeStr;
 	}
 
 	// @RequestMapping(value = "/depot")
@@ -128,10 +135,10 @@ public class StbController {
 
 	public DataSource getDataSource() {
 		String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
-//		 String port = "3306";
+		// String port = "3306";
 		String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
 		String dbName = "stb";
-//		String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
+		// String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
 		String url = "jdbc:mysql://" + "127.11.194.2" + ":" + "3306" + "/" + "stb";
 		String user = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 		String passwd = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");

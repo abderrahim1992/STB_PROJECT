@@ -150,7 +150,13 @@ public class StbDaoImpl implements StbDAO {
 		int id = jdbcTemplate.queryForInt(query);
 		return id;
 	}
-
+	
+	public int getStbCount() {
+		String query = "SELECT COUNT(stb_id) FROM stbType";
+		int count = jdbcTemplate.queryForInt(query);
+		return count;
+	}
+	
 	public DataSource getDataSource() {
 		String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
 		// String port = "3306";
