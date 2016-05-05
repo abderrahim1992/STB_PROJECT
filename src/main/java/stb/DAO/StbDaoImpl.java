@@ -37,6 +37,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import stb.model.STB;
 import stb.model.StbClient;
 import stb.model.StbCommentaire;
@@ -160,19 +162,27 @@ public class StbDaoImpl implements StbDAO {
 		return count;
 	}
 	
+//	public boolean existSTB(int id) {
+//		String query = "SELECT stb_id FROM stbType";
+//		boolean result = false;
+//		List<Map<String, Object>> stIdsList = jdbcTemplate.queryForList(query);
+//		for (int i = 0; i < stIdsList.size(); i++) {
+//			Iterator<Entry<String, Object>> entries = stIdsList.get(i).entrySet().iterator();
+//			while (entries.hasNext()) {
+//				if(entries.next().equals(id)) {
+//					result = true;
+//				}
+//			}
+//		}
+//		return result;
+//	}
+	
 	public boolean existSTB(int id) {
-		String query = "SELECT stb_id FROM stbType";
-		boolean result = false;
-		List<Map<String, Object>> stIdsList = jdbcTemplate.queryForList(query);
-		for (int i = 0; i < stIdsList.size(); i++) {
-			Iterator<Entry<String, Object>> entries = stIdsList.get(i).entrySet().iterator();
-			while (entries.hasNext()) {
-				if(entries.next().equals(id)) {
-					result = true;
-				}
-			}
-		}
-		return result;
+		String query = "SELECT COUNT(1) FROM stbType WHERE stb_id = " + id;
+		int stbCount = jdbcTemplate.queryForInt(query);
+		if (stbCount == 0)
+			return false;
+		return true;
 	}
 	
 	public DataSource getDataSource() {
